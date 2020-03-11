@@ -19,7 +19,7 @@ Start-Transcript -path "C:\VulnCheck\SMBGhost.txt" -Append -NoClobber -IncludeIn
 Write-Host "Starting script..."
 
 #Get the status of SMBv3
-$EnableSMB3Protocol = Get-SmbServerConfiguration | % { $_.EnableSMB3Protocol }
+$EnableSMB3Protocol = Get-SmbServerConfiguration | % { $_.EnableSMB2Protocol }
 
 switch ($EnableSMB3Protocol) {
         "$Null"
@@ -48,7 +48,7 @@ switch ($EnableSMB3Protocol) {
 
 Start-Transcript
 #Is Compression DISABLED?
-$Vulnerable = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters -Name "DisableCompression"
+$Vulnerable = Get-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters -Name "DisableCompression" -ErrorAction SilentlyContinue
 
 If ($Vulnerable.DisableCompression -eq "1"){
     Write-Host "Compression is disabled, this host is not vulnerable"
@@ -64,9 +64,9 @@ ElseIf ($Vulnerable.DisableCompression -eq "0"){
     Stop-Transcript
     Exit
     }
-ElseIf ($Vulnerable.DisableCompression -eq "$Null"){
+ElseIf (($Vulnerable.DisableCompression -eq "$Null") -or ($Vulnerable -eq $Null)){
     Write-Host "WARNING: DisableCompression parameter does not exist in registry, taking precautionary measures"
-    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force
+    New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" -Name "DisableCompression" -PropertyType DWORD -Value 1 -Force
     Write-Host "I've created the DisableCompression parameter and set it to 1 - DISABLED"
     Write-Host "Ending script"
     Stop-Transcript
