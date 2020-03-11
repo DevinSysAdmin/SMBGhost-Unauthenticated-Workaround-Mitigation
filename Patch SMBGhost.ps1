@@ -3,6 +3,10 @@
 ##This script was created in response to ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression
 ##LINK: https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV200005
 
+###########################################################################################################################################
+## This script ONLY addresses compression to block @unauthenticated@ attackers from exploiting the vulnerability against an SMBv3 Server ##
+## Your server is still vulnerable to AUTHENTICATED ATTACKERS until Microsoft releases a patch                                           ##
+###########################################################################################################################################
 
 
 
@@ -10,6 +14,7 @@
 #                      @WARNING@                               #
 #         DO NOT USE THIS SCRIPT WITHOUT TESTING FIRST         #
 #               "USE AT YOUR OWN RISK"                         #
+#                        NOTES:                                #
 #          No reboot is needed after making the change         #
 # This workaround does not prevent exploitation of SMB clients #
 ################################################################
@@ -46,7 +51,7 @@ switch ($EnableSMB3Protocol) {
         "True"
         {
             Write-Host "SMBv3 is installed, and is ENABLED"
-            Write-Host "Now evaluating if vulnerable..."
+            Write-Host "Now evaluating if vulnerable to UNAUTHENTCATED ATTACKERS..."
             Break
         }
     }
@@ -62,9 +67,9 @@ If ($Vulnerable.DisableCompression -eq "1"){
     Exit
     }
 ElseIf ($Vulnerable.DisableCompression -eq "0"){
-    Write-Host "WARNING: THIS HOST IS VULNERABLE! Disabling Compression!"
+    Write-Host "WARNING: THIS HOST IS VULNERABLE TO UNAUTHENTICATED ATTACKERS! Disabling Compression!"
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" DisableCompression -Type DWORD -Value 1 -Force
-    Write-Host "Compression has been disabled, you are no longer vulnerable"
+    Write-Host "Compression has been disabled, you are no longer vulnerable to UNAUTHENTICATED ATTACKERS"
     Write-Host "Ending script"
     Stop-Transcript
     Exit
