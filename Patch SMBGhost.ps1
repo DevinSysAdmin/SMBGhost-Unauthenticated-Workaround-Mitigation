@@ -1,13 +1,18 @@
 ﻿##This script was created by /r/DevinSysAdmin for MSP and MSSPs - Protect your clients!
+##Thanks to the community at /r/Powershell for assisting!
 ##This script was created in response to ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression
 ##LINK: https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV200005
 
 
-###############################################################
-#                 @WARNING@                                   #
-#         DO NOT USE THIS SCRIPT WITHOUT TESTING FIRST        #
-#               "USE AT YOUR OWN RISK"                        #
-###############################################################
+
+
+################################################################
+#                      @WARNING@                               #
+#         DO NOT USE THIS SCRIPT WITHOUT TESTING FIRST         #
+#               "USE AT YOUR OWN RISK"                         #
+#          No reboot is needed after making the change         #
+# This workaround does not prevent exploitation of SMB clients #
+################################################################
 
 
 
