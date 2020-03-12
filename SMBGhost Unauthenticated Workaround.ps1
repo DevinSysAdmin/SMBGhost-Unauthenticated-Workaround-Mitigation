@@ -1,4 +1,26 @@
-﻿##This script was created by /r/DevinSysAdmin for MSP and MSSPs - Protect your clients!
+﻿AS OF 3/12/2020 MICROSOFT HAS RELEASED AN OFFICIAL PATCH - PLEASE USE THAT INSTEAD OF THIS SCRIPT!
+
+
+https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-0796
+
+EXIT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##This script was created by /r/DevinSysAdmin for MSP and MSSPs - Protect your clients!
 ##Thanks to the community at /r/Powershell for assisting!
 ##This script was created in response to ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression
 ##LINK: https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/ADV200005
